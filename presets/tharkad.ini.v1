@@ -1,0 +1,25 @@
+# this was my inital config just to test if config was working
+
+[unsloth/Qwen3-Coder-Next-GGUF:UD-Q4_K_XL]
+jinja = 1
+ctx-size = 100000
+hf-repo = unsloth/Qwen3-Coder-Next-GGUF:UD-Q4_K_XL
+alias = Unsloth Qwen3 UD Q4XL
+
+[unsloth/gpt-oss-20b-GGUF:F16]
+jinja = 1
+ctx-size = 100000
+hf-repo = unsloth/gpt-oss-20b-GGUF:F16
+alias = GPT-OSS 20b
+
+[Qwen/Qwen3-Coder-Next-GGUF:Q5_K_M]
+jinja = 1
+ctx-size = 100000
+hf-repo = Qwen/Qwen3-Coder-Next-GGUF:Q5_K_M
+alias = Qwen3-Coder-Next
+
+[ggml-org/gemma-3-1b-it-GGUF]
+jinja = 1
+ctx-size = 100000
+hf-repo = ggml-org/gemma-3-1b-it-GGUF
+alias = Gemma 3

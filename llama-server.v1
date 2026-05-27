@@ -1,0 +1,13 @@
+[Unit]
+Description=LLaMA.cpp Server Router
+After=network.target
+
+[Service]
+ExecStart=/home/donny/llama.cpp/build/bin/llama-server --host 0.0.0.0 --port 8080 --models-preset /home/donny/llama.cpp/models/presets/tharkad.ini
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
