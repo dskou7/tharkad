@@ -3,7 +3,8 @@
 This script fetches the list of models from tharkad's models endpoint and updates the opencode configuration file with the latest model information. 
 It creates a backup of the original config before making changes.
 
-machine generated. might suck.
+machine generated. might suck. 
+Needs some tweaking, seems to generate more models than the server has.
 """
 
 import json
@@ -29,6 +30,8 @@ def fetch_models(url: str) -> list[dict]:
 def sync_models(tharkad_url: str, config_path: Path) -> None:
     """Sync tharkad models to opencode config."""
     models = fetch_models(tharkad_url)
+
+    print(f"Fetched {len(models)} models from tharkad.")
 
     with open(config_path) as f:
         config = json.load(f)
