@@ -97,6 +97,8 @@ user is llamabot
 * `$sudo chown -R llamabot:llamabot /opt/llama.cpp`
 * `$sudo chown -R llamabot:llamabot /var/lib/llama.cpp`
 
+also added llamabot to the render and video groups
+
 
 
 
