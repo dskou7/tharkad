@@ -30,7 +30,7 @@ Drivers
 * `$cat /proc/driver/nvidia/version` (this came up with nothing on first run)
 * run apt updates
 * `$sudo ubuntu-drivers list --gpgpu`
-* `$%sudo ubuntu-drivers install --gpgpu`
+* `$sudo ubuntu-drivers install --gpgpu`
 * reboot
 
 CUDA
@@ -46,7 +46,7 @@ $sudo apt update
 * install nvidia-open `$sudo apt install nvidia-open` 
 * reboot and run `$nvidia-smi`. This should list graphics cards installed
 * install cuda toolkit `$sudo apt install cuda-toolkit` 
-* put cuda stuff in the PATH
+* put cuda stuff in the PATH (need to update this for putting stuff in everyone's path for server)
 ```
 echo 'export PATH=/usr/local/cuda/bin:$PATH' >> ~/.bashrc
 echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}' >> ~/.bashrc
@@ -54,17 +54,33 @@ source ~/.bashrc
 ```
 * check with `$nvcc --version`
 
+# directories
 
+llama directory is /opt/llama.cpp
+* `$sudo mkdir /opt/llama.cpp`
+models and config are stored in /var/lib/llama.cpp/
+there's a models dir and a config dir inside the llama dir. 
+* `$sudo mkdir /var/lib/llama.cpp/models`
+* `$sudo mkdir /var/lib/llama.cpp/config`
 
-below is old stuff: 
-apt install nvidia-cuda-toolkit
+Old info below:
 
-(this broke when llama.cpp wanted cuda 13, but we had cuda 12 intalled. More to come on this.)
+In the ~/llama.cpp/models, I made two directories. web, where i had model .gguf files, and presets. presets has all the .ini files. 
 
+I was trying to find a way to have llama-server read all the individual .ini files for the models, but it looks like right now it can only read one file, so everything got copied into tharkad.ini. 
 
 # llama install: 
+
+we are creating a user to run this service
+user is llamabot
+* `$sudo useradd -r -s /bin/false llamabot`
+* `$sudo chown -R llamabot:llamabot /opt/llama.cpp`
+* `$sudo chown -R llamabot:llamabot /var/lib/llama.cpp`
+
+also added llamabot to the render and video groups, dunno if that was needed. We'll find out this time.
+
 clone repo from github and build
-no the new server i'm putting this in /opt/llama.cpp/
+on the new server i'm putting this in /opt/llama.cpp/
 
 # build commands
 ```
@@ -77,18 +93,6 @@ no the new server i'm putting this in /opt/llama.cpp/
 ```
 (the -j 23 is how many threads to use. Tharkad has 24 cores so i'm gonna use em)
 
-# directories
-
-llama directory is /opt/llama.cpp
-models and config are stored in /var/lib/llama.cpp/
-there's a models dir and a config dir inside the llama dir. 
-
-
-Old info below:
-
-In the ~/llama.cpp/models, I made two directories. web, where i had model .gguf files, and presets. presets has all the .ini files. 
-
-I was trying to find a way to have llama-server read all the individual .ini files for the models, but it looks like right now it can only read one file, so everything got copied into tharkad.ini. 
 
 # Service stuff
 soo we are crating a user to run this service
